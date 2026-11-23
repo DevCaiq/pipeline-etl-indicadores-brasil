@@ -1,0 +1,79 @@
+groups:
+  - name: operacao_local
+    rules:
+      - alert: APILocalIndisponivel
+        expr: up{job="api_local"} == 0
+        for: 2m
+        labels:
+          ambiente: local
+          gravidade: aviso
+        annotations:
+          summary: API local sem coleta de métricas
+          description: Conferir processo da API e conectividade entre Docker e Windows.
+      - alert: PipelineLocalSemMetricas
+        expr: pipeline_coleta_disponivel == 0
+        for: 2m
+        labels:
+          ambiente: local
+          gravidade: aviso
+        annotations:
+          summary: Consulta operacional indisponível
+          description: Conferir banco e permissões das views sanitizadas.
+      - alert: SerieLocalDefasada
+        expr: pipeline_serie_defasada == 1
+        for: 5m
+        labels:
+          ambiente: local
+          gravidade: aviso
+        annotations:
+          summary: Série fora da política local de frescor
+          description: Conferir última referência e calendário antes de executar retomada.
+      - alert: ConsultaIBGELocalDefasada
+        expr: pipeline_ibge_consulta_defasada == 1
+        for: 5m
+        labels:
+          ambiente: local
+          gravidade: aviso
+        annotations:
+          summary: Consulta IBGE fora da política local
+          description: Localidades tolera 14 dias e população 35 dias sem consulta confirmada.
+      - alert: ConsultaIBGELocalDesconhecida
+        expr: pipeline_ibge_consulta_defasada == -1
+        for: 5m
+        labels:
+          ambiente: local
+          gravidade: aviso
+        annotations:
+          summary: Frescor IBGE desconhecido
+          description: Executar consulta instrumentada; histórico ausente não significa sucesso.
+      - alert: PeriodoIBGELocalPendente
+        expr: pipeline_ibge_periodo_pendente == 1
+        for: 15m
+        labels:
+          ambiente: local
+          gravidade: aviso
+        annotations:
+          summary: Ano disponível IBGE ainda não carregado
+          description: Conferir auditoria da coleta e promover pacote completo validado.
+      - alert: PublicacaoLocalPendente
+        expr: pipeline_publicacao_pendente == 1
+        for: 1h
+        labels:
+          ambiente: local
+          gravidade: aviso
+        annotations:
+          summary: Publicação pendente observada há uma hora
+          description: Conferir publicação por domínio; a janela reinicia após reinício do Prometheus.
+  - name: simulacao_local
+    rules:
+      # Métrica ausente em operação; somente o teste offline a injeta temporariamente.
+      - alert: DemonstracaoLocalSimulada
+        expr: demonstracao_local_falha_simulada{ambiente="teste_local"} == 1
+        for: 30s
+        labels:
+          ambiente: teste_local
+          gravidade: demonstracao
+          simulacao: "true"
+        annotations:
+          summary: Falha simulada exclusivamente para demonstração local
+          description: Métrica artificial sem alteração do banco ou da operação.

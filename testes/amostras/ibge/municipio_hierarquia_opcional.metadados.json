@@ -1,0 +1,24 @@
+{
+  "fonte": "IBGE",
+  "url": "https://servicodados.ibge.gov.br/api/v1/localidades/municipios/5101837",
+  "parametros": {},
+  "coletado_em": "2026-11-19T04:04:27.546060+00:00",
+  "http_status": 200,
+  "sha256": "602d721d7f2e46eb945f7ef0d09abec07033bbba830c56078ab884f5c7dc15cd",
+  "bytes": 268,
+  "cabecalhos": {
+    "Date": "Thu, 19 Nov 2026 04:04:28 GMT",
+    "Content-Type": "application/json; charset=utf-8",
+    "Transfer-Encoding": "chunked",
+    "Connection": "close",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Origin": "*",
+    "Cache-Control": "max-age=2592000",
+    "cf-cache-status": "DYNAMIC",
+    "Expires": "Sat, 19 Dec 2026 04:04:28 GMT",
+    "Vary": "Accept-Encoding",
+    "Server": "cloudflare",
+    "CF-RAY": "a5cc54bb5f060120-GRU"
+  }
+}

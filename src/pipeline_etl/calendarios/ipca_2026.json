@@ -1,0 +1,69 @@
+{
+  "versao": "ibge-ipca-20261118-19f6021aa9b7",
+  "produto_id": 9256,
+  "fonte_url": "https://servicodados.ibge.gov.br/api/v3/calendario/?produto=9256",
+  "fonte_sha256": "19f6021aa9b7fc2825c0ccef6efbf1667d20cb2ac20f213f2a8595f7d4b5c8a5",
+  "consultado_em": "2026-11-19T00:55:35.224144+00:00",
+  "divulgacoes": [
+    {
+      "identificador_origem": 4211,
+      "referencia": "2026-01-01",
+      "data_divulgacao": "2026-02-10"
+    },
+    {
+      "identificador_origem": 4220,
+      "referencia": "2026-02-01",
+      "data_divulgacao": "2026-03-12"
+    },
+    {
+      "identificador_origem": 4232,
+      "referencia": "2026-03-01",
+      "data_divulgacao": "2026-04-10"
+    },
+    {
+      "identificador_origem": 4242,
+      "referencia": "2026-04-01",
+      "data_divulgacao": "2026-05-12"
+    },
+    {
+      "identificador_origem": 4260,
+      "referencia": "2026-05-01",
+      "data_divulgacao": "2026-06-12"
+    },
+    {
+      "identificador_origem": 4270,
+      "referencia": "2026-06-01",
+      "data_divulgacao": "2026-07-10"
+    },
+    {
+      "identificador_origem": 4282,
+      "referencia": "2026-07-01",
+      "data_divulgacao": "2026-08-11"
+    },
+    {
+      "identificador_origem": 4297,
+      "referencia": "2026-08-01",
+      "data_divulgacao": "2026-09-11"
+    },
+    {
+      "identificador_origem": 4309,
+      "referencia": "2026-09-01",
+      "data_divulgacao": "2026-10-09"
+    },
+    {
+      "identificador_origem": 4321,
+      "referencia": "2026-10-01",
+      "data_divulgacao": "2026-11-12"
+    },
+    {
+      "identificador_origem": 4338,
+      "referencia": "2026-11-01",
+      "data_divulgacao": "2026-12-11"
+    },
+    {
+      "identificador_origem": 4349,
+      "referencia": "2026-12-01",
+      "data_divulgacao": "2027-01-12"
+    }
+  ]
+}

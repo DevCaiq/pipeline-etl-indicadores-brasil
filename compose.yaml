@@ -1,0 +1,35 @@
+name: pipeline-etl
+services:
+  banco:
+    image: postgres:16.16-bookworm@sha256:a49f7438ba03589f9b1ca062f2da82e899b48ea1dc50d2449fa09a70be83ebca
+    environment:
+      POSTGRES_DB: etl
+      POSTGRES_USER: administrador
+      POSTGRES_PASSWORD: ${SENHA_BANCO_ADMIN:?Defina SENHA_BANCO_ADMIN em .env.banco}
+      SENHA_BANCO_MIGRACOES: ${SENHA_BANCO_MIGRACOES:?Defina SENHA_BANCO_MIGRACOES}
+      SENHA_BANCO_PROCESSAMENTO: ${SENHA_BANCO_PROCESSAMENTO:?Defina SENHA_BANCO_PROCESSAMENTO}
+      SENHA_BANCO_API: ${SENHA_BANCO_API:?Defina SENHA_BANCO_API}
+      SENHA_BANCO_PUBLICADOR: ${SENHA_BANCO_PUBLICADOR:?Defina SENHA_BANCO_PUBLICADOR}
+    ports:
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - dados_postgres:/var/lib/postgresql/data
+      - ./infraestrutura/inicializar-papeis.sh:/docker-entrypoint-initdb.d/10-papeis.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U administrador -d etl"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  migracoes:
+    build: .
+    environment:
+      AMBIENTE: desenvolvimento
+      HOST_BANCO_MIGRACOES: banco
+      SENHA_BANCO_MIGRACOES: ${SENHA_BANCO_MIGRACOES}
+    depends_on:
+      banco:
+        condition: service_healthy
+    restart: "no"
+volumes:
+  dados_postgres:

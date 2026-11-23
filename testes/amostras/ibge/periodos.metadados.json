@@ -1,0 +1,22 @@
+{
+  "fonte": "IBGE",
+  "url": "https://servicodados.ibge.gov.br/api/v3/agregados/6579/periodos",
+  "parametros": {},
+  "coletado_em": "2026-11-19T04:02:59.786909+00:00",
+  "http_status": 200,
+  "sha256": "a64fcf07c29f10eb88b3abe3ed4b67addf6900ad0525988b8f8b84fe4664c2e2",
+  "bytes": 1343,
+  "cabecalhos": {
+    "Date": "Thu, 19 Nov 2026 04:03:00 GMT",
+    "Content-Type": "application/json",
+    "Content-Length": "1343",
+    "Connection": "close",
+    "Cache-Control": "max-age=3419.6581893",
+    "Expires": "Thu, 19 Nov 2026 05:00:00 GMT",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Origin": "*",
+    "cf-cache-status": "DYNAMIC",
+    "Server": "cloudflare",
+    "CF-RAY": "a5cc5296ffd12395-GRU"
+  }
+}

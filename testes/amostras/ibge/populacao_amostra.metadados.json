@@ -1,0 +1,24 @@
+{
+  "fonte": "IBGE",
+  "url": "https://servicodados.ibge.gov.br/api/v3/agregados/6579/periodos/2020|2021|2024|2025|2026/variaveis/9324?localidades=N6%5B3550308%2C5300108%2C1504752%5D",
+  "parametros": {
+    "localidades": "N6[3550308,5300108,1504752]"
+  },
+  "coletado_em": "2026-11-19T04:03:00.859297+00:00",
+  "http_status": 200,
+  "sha256": "022fa1b940440386ab42e969b84ab28b1eb12d9173e8f8ec581a93242e4cd1d1",
+  "bytes": 704,
+  "cabecalhos": {
+    "Date": "Thu, 19 Nov 2026 04:03:01 GMT",
+    "Content-Type": "application/json",
+    "Content-Length": "704",
+    "Connection": "close",
+    "Cache-Control": "max-age=3418.5857384",
+    "Expires": "Thu, 19 Nov 2026 05:00:00 GMT",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Origin": "*",
+    "cf-cache-status": "DYNAMIC",
+    "Server": "cloudflare",
+    "CF-RAY": "a5cc529d9ac2e6b5-GRU"
+  }
+}

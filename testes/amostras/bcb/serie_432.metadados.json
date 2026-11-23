@@ -1,0 +1,28 @@
+{
+  "codigo_sgs": 432,
+  "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados?formato=json&dataInicial=02%2F01%2F2020&dataFinal=06%2F01%2F2020",
+  "parametros": {
+    "formato": "json",
+    "dataInicial": "02/01/2020",
+    "dataFinal": "06/01/2020"
+  },
+  "consultado_em": "2026-11-18T02:22:39.177483+00:00",
+  "status_http": 200,
+  "tipo_conteudo": "application/json; charset=utf-8",
+  "tamanho_bytes": 186,
+  "sha256": "3f8a8a942d1ec01000faadd251aacde0badedd0b8c0eb8a29601b1365eecd639",
+  "situacao": "resposta_validada",
+  "quantidade_registros": 5,
+  "amostra": [
+    {
+      "data": "02/01/2020",
+      "valor": "4.50"
+    },
+    {
+      "data": "03/01/2020",
+      "valor": "4.50"
+    }
+  ],
+  "origem": "Banco Central do Brasil — API SGS",
+  "observacao": "Amostra oficial pequena para testes offline; preservada sem alterar o corpo."
+}

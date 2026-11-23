@@ -1,0 +1,9 @@
+# Scripts Linux e configuração mantêm finais de linha portáveis.
+* text=auto
+*.py text eol=lf
+*.sh text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+Dockerfile text eol=lf
+# Respostas oficiais são preservadas byte a byte para validação de SHA-256.
+testes/amostras/** -text

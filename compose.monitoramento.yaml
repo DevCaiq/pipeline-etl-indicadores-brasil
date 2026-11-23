@@ -1,0 +1,70 @@
+name: pipeline-etl
+services:
+  api_local:
+    build: .
+    profiles: [monitoramento]
+    command:
+      - python
+      - -c
+      - >-
+        import uvicorn;
+        from pipeline_etl.api.aplicacao import criar_aplicacao;
+        uvicorn.run(criar_aplicacao(), host='0.0.0.0', port=8000,
+        proxy_headers=False, access_log=False)
+    environment:
+      URL_BANCO_API: ${URL_BANCO_API_CONTAINER:?Defina URL_BANCO_API_CONTAINER em .env.monitoramento}
+      SEGREDO_CURSOR: ${SEGREDO_CURSOR_CONTAINER:?Defina SEGREDO_CURSOR_CONTAINER em .env.monitoramento}
+      CACHE_HABILITADO: "true"
+      URL_REDIS: ${URL_REDIS_CONTAINER:?Defina URL_REDIS_CONTAINER em .env.monitoramento}
+    depends_on:
+      banco:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${PORTA_API_LOCAL:-8000}:8000"
+    restart: unless-stopped
+  cache:
+    image: redis:7.4.12-alpine3.22
+    profiles: [monitoramento]
+    command: [redis-server, /usr/local/etc/redis/redis.conf]
+    ports:
+      - "127.0.0.1:${PORTA_REDIS_LOCAL:-6379}:6379"
+    volumes:
+      - ./.cache/redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+      - dados_redis:/data
+    restart: unless-stopped
+  prometheus:
+    image: prom/prometheus:v3.16.0
+    profiles: [monitoramento]
+    command:
+      - --config.file=/etc/prometheus/prometheus.yaml
+      - --storage.tsdb.retention.time=7d
+      - --web.enable-lifecycle
+    ports:
+      - "127.0.0.1:9090:9090"
+    volumes:
+      - ./infraestrutura/monitoramento/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
+      - ./infraestrutura/monitoramento/alertas.yaml:/etc/prometheus/alertas.yaml:ro
+      - metricas_prometheus:/prometheus
+    restart: unless-stopped
+  grafana:
+    image: grafana/grafana:13.3.1
+    profiles: [monitoramento]
+    environment:
+      GF_SECURITY_ADMIN_USER: administrador
+      GF_SECURITY_ADMIN_PASSWORD: ${SENHA_GRAFANA:?Defina SENHA_GRAFANA em .env.monitoramento}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_AUTH_ANONYMOUS_ENABLED: "false"
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+      GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES: "false"
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - ./infraestrutura/monitoramento/grafana/provisionamento:/etc/grafana/provisioning:ro
+      - ./infraestrutura/monitoramento/grafana/paineis:/var/lib/grafana/dashboards:ro
+      - dados_grafana:/var/lib/grafana
+    restart: unless-stopped
+volumes:
+  dados_redis:
+  metricas_prometheus:
+  dados_grafana:

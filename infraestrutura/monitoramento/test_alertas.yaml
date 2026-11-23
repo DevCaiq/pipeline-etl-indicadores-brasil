@@ -1,0 +1,45 @@
+rule_files:
+  - alertas.yaml
+evaluation_interval: 15s
+tests:
+  - interval: 15s
+    input_series:
+      - series: 'demonstracao_local_falha_simulada{ambiente="teste_local"}'
+        values: '0 1 1 1 0 0'
+    alert_rule_test:
+      - eval_time: 15s
+        alertname: DemonstracaoLocalSimulada
+        exp_alerts: []
+      - eval_time: 45s
+        alertname: DemonstracaoLocalSimulada
+        exp_alerts:
+          - exp_labels:
+              ambiente: teste_local
+              gravidade: demonstracao
+              simulacao: "true"
+            exp_annotations:
+              summary: Falha simulada exclusivamente para demonstração local
+              description: Métrica artificial sem alteração do banco ou da operação.
+      - eval_time: 60s
+        alertname: DemonstracaoLocalSimulada
+        exp_alerts: []
+  - interval: 1m
+    input_series:
+      - series: 'pipeline_ibge_consulta_defasada{conjunto="localidades"}'
+        values: '1+0x6'
+      - series: 'pipeline_ibge_consulta_defasada{conjunto="populacao"}'
+        values: '0+0x6'
+    alert_rule_test:
+      - eval_time: 4m
+        alertname: ConsultaIBGELocalDefasada
+        exp_alerts: []
+      - eval_time: 5m
+        alertname: ConsultaIBGELocalDefasada
+        exp_alerts:
+          - exp_labels:
+              conjunto: localidades
+              ambiente: local
+              gravidade: aviso
+            exp_annotations:
+              summary: Consulta IBGE fora da política local
+              description: Localidades tolera 14 dias e população 35 dias sem consulta confirmada.

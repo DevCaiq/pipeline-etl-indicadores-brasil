@@ -1,0 +1,44 @@
+# Ambientes, ferramentas e dependências locais
+.venv/
+.ferramentas/
+.cache/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage.xml
+*.egg-info/
+build/
+dist/
+
+# Segredos, dados operacionais e recuperação
+.env
+.env.*
+!.env.example
+dados/
+backups/
+*.log
+*.pem
+*.key
+*.p12
+*.pfx
+*.dump
+*.backup
+.ssh/
+.aws/
+.oci/
+.codex/
+.agents/
+
+# Sistema/editor
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+.worktrees/
+
+!.env.banco.example
+!.env.armazenamento.example

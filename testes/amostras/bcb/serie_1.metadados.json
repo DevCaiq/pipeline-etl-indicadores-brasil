@@ -1,0 +1,28 @@
+{
+  "codigo_sgs": 1,
+  "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1/dados?formato=json&dataInicial=02%2F01%2F2020&dataFinal=06%2F01%2F2020",
+  "parametros": {
+    "formato": "json",
+    "dataInicial": "02/01/2020",
+    "dataFinal": "06/01/2020"
+  },
+  "consultado_em": "2026-11-18T02:22:42.442541+00:00",
+  "status_http": 200,
+  "tipo_conteudo": "application/json; charset=utf-8",
+  "tamanho_bytes": 118,
+  "sha256": "df05f9558fb93676c21044c15e4359a1ec804303fbcd6a0c1f00f08b99798d45",
+  "situacao": "resposta_validada",
+  "quantidade_registros": 3,
+  "amostra": [
+    {
+      "data": "02/01/2020",
+      "valor": "4.0213"
+    },
+    {
+      "data": "03/01/2020",
+      "valor": "4.0522"
+    }
+  ],
+  "origem": "Banco Central do Brasil — API SGS",
+  "observacao": "Amostra oficial pequena para testes offline; preservada sem alterar o corpo."
+}

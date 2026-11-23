@@ -1,0 +1,24 @@
+{
+  "fonte": "IBGE",
+  "url": "https://servicodados.ibge.gov.br/api/v3/agregados/6579/metadados",
+  "parametros": {},
+  "coletado_em": "2026-11-19T04:02:58.709539+00:00",
+  "http_status": 200,
+  "sha256": "6172ae800a704ad21cfd4f8ae55c2864ef688d172aa305341e84b3964cf45962",
+  "bytes": 444,
+  "cabecalhos": {
+    "Date": "Thu, 19 Nov 2026 04:02:59 GMT",
+    "Content-Type": "application/json; charset=utf-8",
+    "Transfer-Encoding": "chunked",
+    "Connection": "close",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Origin": "*",
+    "Cache-Control": "max-age=3420.7399092",
+    "cf-cache-status": "DYNAMIC",
+    "Expires": "Thu, 19 Nov 2026 04:59:59 GMT",
+    "Vary": "Accept-Encoding",
+    "Server": "cloudflare",
+    "CF-RAY": "a5cc52903fd36eac-GRU"
+  }
+}

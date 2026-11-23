@@ -1,0 +1,28 @@
+{
+  "codigo_sgs": 433,
+  "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json&dataInicial=01%2F01%2F2020&dataFinal=01%2F03%2F2020",
+  "parametros": {
+    "formato": "json",
+    "dataInicial": "01/01/2020",
+    "dataFinal": "01/03/2020"
+  },
+  "consultado_em": "2026-11-18T02:22:41.040064+00:00",
+  "status_http": 200,
+  "tipo_conteudo": "application/json; charset=utf-8",
+  "tamanho_bytes": 112,
+  "sha256": "bccb755efe8fc808df5e0b02409a9b7fe4a29afa9b25234dc3ba6f81f3df0570",
+  "situacao": "resposta_validada",
+  "quantidade_registros": 3,
+  "amostra": [
+    {
+      "data": "01/01/2020",
+      "valor": "0.21"
+    },
+    {
+      "data": "01/02/2020",
+      "valor": "0.25"
+    }
+  ],
+  "origem": "Banco Central do Brasil — API SGS",
+  "observacao": "Amostra oficial pequena para testes offline; preservada sem alterar o corpo."
+}

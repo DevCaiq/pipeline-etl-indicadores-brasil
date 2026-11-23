@@ -1,0 +1,24 @@
+{
+  "fonte": "IBGE",
+  "url": "https://servicodados.ibge.gov.br/api/v1/localidades/regioes",
+  "parametros": {},
+  "coletado_em": "2026-11-19T04:02:55.289814+00:00",
+  "http_status": 200,
+  "sha256": "7a92480f1e5948b60d184fd11672f6d4e0842c906213f1b57c75db1ed12eb45a",
+  "bytes": 194,
+  "cabecalhos": {
+    "Date": "Thu, 19 Nov 2026 04:02:55 GMT",
+    "Content-Type": "application/json; charset=utf-8",
+    "Transfer-Encoding": "chunked",
+    "Connection": "close",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Origin": "*",
+    "Cache-Control": "max-age=2592000",
+    "cf-cache-status": "DYNAMIC",
+    "Expires": "Sat, 19 Dec 2026 04:02:55 GMT",
+    "Vary": "Accept-Encoding",
+    "Server": "cloudflare",
+    "CF-RAY": "a5cc527afe1ff450-GRU"
+  }
+}

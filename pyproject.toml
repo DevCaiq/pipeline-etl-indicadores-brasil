@@ -1,0 +1,88 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pipeline-etl"
+version = "0.1.0"
+description = "Pipeline ETL e API de consulta de dados publicos brasileiros"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "pydantic-settings>=2.7,<3",
+  "python-dotenv>=1,<2",
+  "structlog>=25,<27",
+  "sqlalchemy>=2.0.36,<2.1",
+  "psycopg[binary]>=3.2,<4",
+  "alembic>=1.14,<2",
+  "httpx>=0.28,<1",
+  "tenacity>=9,<10",
+  "tzdata>=2025.1",
+  "fastapi>=0.115,<1",
+  "uvicorn>=0.34,<1",
+  "redis>=6,<9",
+  "prometheus-client>=0.22,<1",
+  "boto3>=1.36,<2",
+]
+
+[project.scripts]
+pipeline-etl = "pipeline_etl.comandos:executar"
+
+[dependency-groups]
+dev = [
+  "pytest>=8.3,<10",
+  "pytest-cov>=6,<8",
+  "ruff>=0.11,<1",
+  "mypy>=1.15,<2",
+  "bandit>=1.8,<2",
+  "pip-audit>=2.8,<3",
+  "build>=1.2,<2",
+  "hatchling>=1.27,<2",
+  "pre-commit>=4,<5",
+  "httpx2>=2.16.2",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pipeline_etl"]
+
+[tool.hatch.build.targets.sdist]
+only-include = [
+  "src", "testes", "scripts", "migracoes", "infraestrutura", "docs", ".github",
+  "orquestracao/pyproject.toml", "orquestracao/uv.lock", "orquestracao/ambiente.py",
+  "orquestracao/controle_agendas.py", "orquestracao/fluxos.py", "orquestracao/gerenciar.py",
+  "README.md", "LICENSE", "SECURITY.md", "AGENTS.md", "plano-pipeline-etl-api.md",
+  "pyproject.toml", "uv.lock", "alembic.ini", "Dockerfile", "compose.yaml",
+  "compose.armazenamento.yaml", "compose.monitoramento.yaml", ".python-version",
+  ".gitignore", ".gitattributes", ".dockerignore", ".pre-commit-config.yaml",
+  ".env.example", ".env.banco.example", ".env.armazenamento.example",
+]
+exclude = ["**/__pycache__/**", "**/*.pyc", "**/.venv/**"]
+
+[tool.pytest.ini_options]
+testpaths = ["testes"]
+addopts = "-ra --strict-markers --import-mode=importlib"
+markers = ["integracao: requer PostgreSQL exclusivo de testes"]
+filterwarnings = ["error"]
+
+[tool.coverage.run]
+source = ["pipeline_etl"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 85
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src"]
+
+[tool.bandit]
+exclude_dirs = ["testes", ".venv"]

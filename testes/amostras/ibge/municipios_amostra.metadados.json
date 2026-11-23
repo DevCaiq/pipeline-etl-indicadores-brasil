@@ -1,0 +1,22 @@
+{
+  "fonte": "IBGE",
+  "url": "https://servicodados.ibge.gov.br/api/v1/localidades/municipios/3550308|5300108|1504752",
+  "parametros": {},
+  "coletado_em": "2026-11-19T15:44:17.486011+00:00",
+  "http_status": 200,
+  "sha256": "2df27ac0129b0ac8ff22621f6530e0860582f9444b4d5cc240a5812831015fda",
+  "bytes": 1332,
+  "cabecalhos": {
+    "date": "Thu, 19 Nov 2026 15:44:18 GMT",
+    "content-type": "application/json",
+    "content-length": "1332",
+    "connection": "keep-alive",
+    "cache-control": "max-age=2592000",
+    "expires": "Sat, 19 Dec 2026 15:44:18 GMT",
+    "access-control-allow-methods": "GET, POST, OPTIONS",
+    "access-control-allow-origin": "*",
+    "cf-cache-status": "DYNAMIC",
+    "server": "cloudflare",
+    "cf-ray": "a5d055e37e45a655-GRU"
+  }
+}

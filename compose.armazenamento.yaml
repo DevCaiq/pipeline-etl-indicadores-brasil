@@ -1,0 +1,24 @@
+name: pipeline-etl
+services:
+  objetos:
+    build:
+      context: ./infraestrutura/minio
+    profiles: [armazenamento]
+    environment:
+      MINIO_ROOT_USER: ${USUARIO_MINIO_ADMIN:?Prepare .env.armazenamento}
+      MINIO_ROOT_PASSWORD: ${SENHA_MINIO_ADMIN:?Prepare .env.armazenamento}
+      MINIO_BROWSER: "off"
+    ports:
+      - "127.0.0.1:9000:9000"
+    volumes:
+      - dados_objetos:/dados
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:9000/minio/health/ready', timeout=2).close()"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+volumes:
+  dados_objetos:

@@ -1,0 +1,83 @@
+name: Qualidade Python
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verificar:
+    name: Testes e verificações
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      UV_PYTHON: "3.12"
+    steps:
+      - name: Obter código
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Preparar Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - name: Preparar uv
+        run: python -m pip install uv==0.13.9
+      - name: Instalar dependências travadas
+        run: uv sync --frozen
+      - name: Verificar código
+        run: uv run --frozen ruff check .
+      - name: Verificar formatação
+        run: uv run --frozen ruff format --check .
+      - name: Verificar tipos
+        run: uv run --frozen mypy src
+      - name: Verificar segurança do código
+        run: uv run --frozen bandit -q -r src
+      - name: Preparar credenciais temporárias do banco
+        run: |
+          python - <<'PYTHON'
+          from pathlib import Path
+          import secrets
+          nomes = ["ADMIN", "MIGRACOES", "PROCESSAMENTO", "API", "PUBLICADOR"]
+          valores = {nome: secrets.token_hex(24) for nome in nomes}
+          for valor in valores.values():
+              print(f"::add-mask::{valor}")
+          Path(".env.banco").write_text("".join(f"SENHA_BANCO_{nome}={valor}\n" for nome, valor in valores.items()))
+          PYTHON
+      - name: Iniciar PostgreSQL
+        run: docker compose --env-file .env.banco up -d --wait banco
+      - name: Aplicar migração na imagem real
+        run: docker compose --env-file .env.banco run --build --rm migracoes
+      - name: Executar testes e cobertura com PostgreSQL
+        run: uv run --frozen python scripts/testar_banco.py
+      - name: Verificar cobertura da configuração
+        run: uv run --frozen coverage report --include="*/configuracao.py" --fail-under=95
+      - name: Verificar cobertura dos módulos de dados
+        run: |
+          uv run --frozen coverage report --include="*/processamento/qualidade.py" --fail-under=95
+          uv run --frozen coverage report --include="*/contratos/bcb.py" --fail-under=95
+          uv run --frozen coverage report --include="*/contratos/ibge.py" --fail-under=95
+          uv run --frozen coverage report --include="*/processamento/transformacao.py" --fail-under=95
+          uv run --frozen coverage report --include="*/processamento/carga.py" --fail-under=95
+          uv run --frozen coverage report --include="*/processamento/carga_ibge.py" --fail-under=95
+          uv run --frozen coverage report --include="*/processamento/incremental.py" --fail-under=95
+          uv run --frozen coverage report --include="*/processamento/atualizacao.py" --fail-under=95
+          uv run --frozen coverage report --include="*/processamento/indicadores.py" --fail-under=95
+          uv run --frozen coverage report --include="*/processamento/publicacao.py" --fail-under=95
+          uv run --frozen coverage report --include="*/api/cursores.py" --fail-under=95
+          uv run --frozen coverage report --include="*/api/ibge.py" --fail-under=95
+          uv run --frozen coverage report --include="*/api/repositorio.py" --fail-under=95
+          uv run --frozen coverage report --include="*/api/aplicacao.py" --fail-under=95
+      - name: Auditar dependências
+        run: uv run --frozen pip-audit --skip-editable --progress-spinner off
+      - name: Construir distribuição
+        run: uv build --no-build-isolation
+      - name: Verificar execução instalada
+        run: |
+          uv venv .cache/validacao-pacote
+          uv pip install --python .cache/validacao-pacote/bin/python dist/*.whl
+          cd /tmp
+          "$GITHUB_WORKSPACE/.cache/validacao-pacote/bin/pipeline-etl" verificar-configuracao
+      - name: Encerrar containers
+        if: always()
+        run: docker compose --env-file .env.banco down

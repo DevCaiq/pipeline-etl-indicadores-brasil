@@ -1,0 +1,6 @@
+[project]
+name = "orquestracao-local"
+version = "0.1.0"
+description = "Prefect local isolado da API do pipeline"
+requires-python = ">=3.12,<3.13"
+dependencies = ["prefect==3.9.3", "python-dotenv>=1,<2", "asyncpg>=0.30,<1"]
